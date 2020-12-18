@@ -96,18 +96,22 @@ export default class BlackJackModel {
 
   isGameEndCondition(users) {
     if (this._dealer.getIsBlackJack()) {
+      console.log('end');
       return true;
     }
 
     if (this.isUsersBlackJacK(users)) {
+      console.log('end');
       return true;
     }
 
     if (this._dealer.getIsBurst()) {
+      console.log('end');
       return true;
     }
 
     if (this.AllUsersAreBurst(users)) {
+      console.log('end');
       return true;
     }
   }

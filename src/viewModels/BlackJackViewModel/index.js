@@ -3,6 +3,7 @@ import { message } from '../../constants';
 export default class BlackJackViewModel {
   constructor(model) {
     this.model = model;
+    this.isHit = [];
   }
 
   gameStart() {
@@ -14,6 +15,16 @@ export default class BlackJackViewModel {
     }
 
     this.model.gameStart();
+  }
+
+  gameProgress(isHit) {
+    const errorMessage = this.validIsHit(isHit);
+
+    if (errorMessage) {
+      alert(errorMessage);
+    }
+
+    this.model.gameProgress(isHit);
   }
 
   getUserNames() {
@@ -66,6 +77,22 @@ export default class BlackJackViewModel {
   validGameStart() {
     if (this.isNoBet()) {
       return message.isNobetter;
+    }
+  }
+
+  validIsHit(isHit) {
+    if (this.isWrongIsHit(isHit)) {
+      return message.wrongIsHit;
+    }
+  }
+
+  isWrongIsHit(isHit) {
+    const filteredIsHit = isHit.filter(answer => {
+      return !(answer === 'y' || answer === 'n');
+    });
+
+    if (filteredIsHit.length !== 0) {
+      return true;
     }
   }
 

@@ -12,6 +12,10 @@ export default class BlackJackView {
     this.eventDelegator.bindView(this);
   }
 
+  resetContainer(container) {
+    container.innerHTML = '';
+  }
+
   renderBetInputContainer() {
     addTemplateToDOMInnerHTML(this.gameContainer, `<div id="blackjack-bet-input-container"></div>`);
   }
@@ -33,6 +37,34 @@ export default class BlackJackView {
     addTemplateToDOMInnerHTML(
       this.gameContainer.querySelector('#blackjack-bet-input-container'),
       `<button id="blackjack-game-start-button" data-purpose="gameStart">${message.gameStart}</button>`,
+    );
+  }
+
+  renderAskMoreCardInputContainer() {
+    this.resetContainer(this.gameContainer.querySelector('#blackjack-bet-input-container'));
+
+    addTemplateToDOMInnerHTML(
+      this.gameContainer,
+      `<div id="blackjack-ask-more-card-input-container"></div>`,
+    );
+  }
+
+  renderAskMoreCardInputs() {
+    this.viewModel.getUserNames().forEach((userName, index) => {
+      addTemplateToDOMInnerHTML(
+        this.gameContainer.querySelector('#blackjack-ask-more-card-input-container'),
+        `
+        <p>${userName}${message.askMoreCard}</p>
+        <input class="blackjack-ask-more-card-input"></input>
+        `,
+      );
+    });
+  }
+
+  renderGameProgressButton() {
+    addTemplateToDOMInnerHTML(
+      this.gameContainer.querySelector('#blackjack-ask-more-card-input-container'),
+      `<button id="blackjack-game-progress-button" data-purpose="gameProgress">${message.gameProgress}</button>`,
     );
   }
 }

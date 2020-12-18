@@ -38,5 +38,20 @@ export default class BlackJackViewEventDelegator {
 
   gameStart(dataset) {
     this.viewModel.gameStart();
+    this.view.renderAskMoreCardInputContainer();
+    this.view.renderAskMoreCardInputs();
+    this.view.renderGameProgressButton();
+  }
+
+  gameProgress(dataset) {
+    const inputs = this.gameContainer.querySelectorAll('.blackjack-ask-more-card-input');
+
+    const isHit = [];
+
+    for (let i = 0; i < inputs.length; i++) {
+      isHit.push(inputs[i].value);
+    }
+
+    this.viewModel.gameProgress(isHit);
   }
 }
