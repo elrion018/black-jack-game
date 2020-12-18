@@ -1,10 +1,12 @@
-import { randomCard } from '../../utils';
+import { randomCard, isBlackJack } from '../../utils';
 
 export default class User {
   constructor(name) {
     this._name = name;
     this._sumValue = 0;
     this._cards = [];
+    this.isBurst = false;
+    this.isBlackJack = false;
   }
 
   firstDraws() {
@@ -24,6 +26,10 @@ export default class User {
 
     this._sumValue = sumValue;
     this._cards = cards;
+
+    if (isBlackJack(this)) {
+      this.isBlackJack = true;
+    }
   }
 
   getCards() {
@@ -34,10 +40,22 @@ export default class User {
     return this._sumValue;
   }
 
+  getIsBlackJack() {
+    return this.isBlackJack;
+  }
+
+  getIsBurst() {
+    return this.isBurst;
+  }
+
   drawCard() {
-    const [sign, value] = randomCard();
+    const [sign, value] = randomCard(this._sumValue);
     this._sumValue += value;
 
     this._cards.push([sign, value]);
+
+    if (this._sumValue > 21) {
+      this.isBurst = true;
+    }
   }
 }

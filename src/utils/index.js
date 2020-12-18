@@ -18,4 +18,10 @@ function randomCard(sumValue) {
   return [putSign, 11];
 }
 
-export { randomCard };
+function isBlackJack(person) {
+  if (person._sumValue === 21 && person._cards.length === 2) {
+    return true;
+  }
+}
+
+export { randomCard, isBlackJack };

@@ -1,9 +1,11 @@
 import { Dealer, User } from '..';
+import { isBlackJack } from '../../utils';
 
 export default class BlackJackModel {
   constructor() {
     this._dealer = null;
     this._users = [];
+    this.isContinue = true;
   }
 
   getDealerCards() {
@@ -26,6 +28,10 @@ export default class BlackJackModel {
     });
   }
 
+  getIsContinue() {
+    return this.isContinue;
+  }
+
   setDealerInstance() {
     this._dealer = new Dealer();
   }
@@ -42,6 +48,57 @@ export default class BlackJackModel {
     this._users.forEach(user => {
       user.firstDraws();
     });
+  }
+
+  gameProgress(isHit) {
+    if (this.isGameEndCondition(this._users)) {
+      this.isContinue = false;
+      return;
+    }
+
+    if (this._dealer.getSumValue() <= 16) {
+      this.letDealerDrawCard();
+    }
+
+    this.letUsersDrawCard(isHit);
+  }
+
+  isUsersBlackJacK(users) {
+    const blackJackUsers = users.filter(user => {
+      return user.getIsBlackJack();
+    });
+
+    if (blackJackUsers.length > 0) {
+      return true;
+    }
+  }
+
+  AllUsersAreBurst(users) {
+    const burstUsers = users.filter(user => {
+      return user.getIsBurst();
+    });
+
+    if (burstUsers.length === users.length) {
+      return true;
+    }
+  }
+
+  isGameEndCondition(users) {
+    if (this._dealer.getIsBlackJack()) {
+      return true;
+    }
+
+    if (this.isUsersBlackJacK(users)) {
+      return true;
+    }
+
+    if (this._dealer.getIsBurst()) {
+      return true;
+    }
+
+    if (this.AllUsersAreBurst(users)) {
+      return true;
+    }
   }
 
   letDealerDrawCard() {
