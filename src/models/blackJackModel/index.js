@@ -45,6 +45,18 @@ export default class BlackJackModel {
       user.drawCard();
     });
   }
-}
 
-const model = new BlackJackModel();
+  letDealerDrawCard() {
+    if (this._dealer.getSumValue() <= 16) {
+      this._dealer.drawCard();
+    }
+  }
+
+  letUsersDrawCard(isHit) {
+    this._users.forEach((user, index) => {
+      if (isHit[index]) {
+        user.drawCard();
+      }
+    });
+  }
+}
