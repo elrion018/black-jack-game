@@ -50,6 +50,10 @@ export default class BlackJackView {
   }
 
   renderAskMoreCardInputs() {
+    this.resetContainer(
+      this.gameContainer.querySelector('#blackjack-ask-more-card-input-container'),
+    );
+
     this.viewModel.getUserNames().forEach((userName, index) => {
       addTemplateToDOMInnerHTML(
         this.gameContainer.querySelector('#blackjack-ask-more-card-input-container'),
@@ -67,4 +71,50 @@ export default class BlackJackView {
       `<button id="blackjack-game-progress-button" data-purpose="gameProgress">${message.gameProgress}</button>`,
     );
   }
+
+  renderGameInmediateResultContainer() {
+    addTemplateToDOMInnerHTML(
+      this.gameContainer,
+      `<div id="blackjack-game-Inmediate-result-container"></div>`,
+    );
+  }
+
+  renderGameInmediateResult() {
+    this.resetContainer(
+      this.gameContainer.querySelector('#blackjack-game-Inmediate-result-container'),
+    );
+
+    this.renderUsersCards();
+  }
+
+  renderUsersCards() {
+    addTemplateToDOMInnerHTML(
+      this.gameContainer.querySelector('#blackjack-game-Inmediate-result-container'),
+      `
+    <div>
+      ${this.viewModel
+        .getUsersCards()
+        .map(NameAndCards => {
+          let [userName, cards] = NameAndCards;
+          return `<p>${userName} : ${cards
+            .map(card => {
+              let [sign, value] = card;
+              return `${sign} ${value}`;
+            })
+            .join(' ')}</p>`;
+        })
+        .join(' ')}
+    </div>
+  `,
+    );
+  }
+
+  renderGameResultContainer() {
+    addTemplateToDOMInnerHTML(
+      this.gameContainer,
+      `<div id="blackjack-game-result-container"></div>`,
+    );
+  }
+
+  renderGameResult() {}
 }

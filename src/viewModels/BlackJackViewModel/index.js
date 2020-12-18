@@ -22,6 +22,7 @@ export default class BlackJackViewModel {
 
     if (errorMessage) {
       alert(errorMessage);
+      return;
     }
 
     this.model.gameProgress(isHit);
@@ -29,6 +30,18 @@ export default class BlackJackViewModel {
 
   getUserNames() {
     return this.model.getUserNames();
+  }
+
+  getUsersCards() {
+    return this.model.getUsersCards();
+  }
+
+  getDealerCards() {
+    return this.model.getDealerCards();
+  }
+
+  getIsContinue() {
+    return this.model.getIsContinue();
   }
 
   setUserNames(userNames) {

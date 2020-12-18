@@ -53,5 +53,17 @@ export default class BlackJackViewEventDelegator {
     }
 
     this.viewModel.gameProgress(isHit);
+    const gameContinue = this.viewModel.getIsContinue();
+
+    if (gameContinue) {
+      this.view.renderAskMoreCardInputs();
+      this.view.renderGameProgressButton();
+      this.view.renderGameInmediateResultContainer();
+      this.view.renderGameInmediateResult();
+    }
+
+    if (!gameContinue) {
+      this.view.renderGameResultContainer();
+    }
   }
 }
