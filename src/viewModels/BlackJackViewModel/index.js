@@ -5,6 +5,17 @@ export default class BlackJackViewModel {
     this.model = model;
   }
 
+  gameStart() {
+    const errorMessage = this.validGameStart();
+
+    if (errorMessage) {
+      alert(errorMessage);
+      return;
+    }
+
+    this.model.gameStart();
+  }
+
   getUserNames() {
     return this.model.getUserNames();
   }
@@ -28,6 +39,8 @@ export default class BlackJackViewModel {
       alert(errorMessage);
       return;
     }
+
+    this.model.setBetMoney(betMoney, userIndex);
   }
 
   validUserNames(userNames) {
@@ -41,9 +54,18 @@ export default class BlackJackViewModel {
   }
 
   validBetMoney(betMoney) {
-    console.log(betMoney);
     if (betMoney === '') {
       return message.isBlank;
+    }
+
+    if (betMoney === 0) {
+      return message.betZero;
+    }
+  }
+
+  validGameStart() {
+    if (this.isNoBet()) {
+      return message.isNobetter;
     }
   }
 
@@ -68,6 +90,18 @@ export default class BlackJackViewModel {
       if (userNames[i].trim() === '') {
         return true;
       }
+    }
+  }
+
+  isNoBet() {
+    const noBets = this.model.getBetMoneys().filter(bet => {
+      return bet === 0;
+    });
+
+    console.log(noBets);
+
+    if (noBets.length !== 0) {
+      return true;
     }
   }
 }

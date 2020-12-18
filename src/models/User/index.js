@@ -5,6 +5,7 @@ export default class User {
     this._name = name;
     this._sumValue = 0;
     this._cards = [];
+    this._betMoney = 0;
     this.isBurst = false;
     this.isBlackJack = false;
   }
@@ -46,6 +47,10 @@ export default class User {
 
   getIsBurst() {
     return this.isBurst;
+  }
+
+  setBetMoney(betMoney) {
+    this._betMoney = betMoney;
   }
 
   drawCard() {

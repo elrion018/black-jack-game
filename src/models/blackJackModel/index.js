@@ -2,7 +2,7 @@ import { Dealer, User } from '..';
 
 export default class BlackJackModel {
   constructor() {
-    this._dealer = null;
+    this._dealer = new Dealer();
     this._users = [];
     this.isContinue = true;
   }
@@ -37,17 +37,20 @@ export default class BlackJackModel {
     return this.isContinue;
   }
 
-  setDealerInstance() {
-    this._dealer = new Dealer();
+  getBetMoneys() {
+    return this._users.map(user => {
+      return user._betMoney;
+    });
   }
 
   setUserInstances(userNames) {
-    console.log(userNames);
     this._users = userNames.map(userName => {
       return new User(userName);
     });
+  }
 
-    console.log(this._users);
+  setBetMoney(betMoney, userIndex) {
+    this._users[userIndex].setBetMoney(betMoney);
   }
 
   gameStart() {

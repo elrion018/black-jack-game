@@ -14,7 +14,6 @@ export default class BlackJackViewEventDelegator {
   }
 
   onClick(event) {
-    console.log('call');
     const { dataset } = event.target;
 
     if (dataset.purpose) {
@@ -28,11 +27,16 @@ export default class BlackJackViewEventDelegator {
     this.viewModel.setUserNames(userNames);
     this.view.renderBetInputContainer();
     this.view.renderBetInputs();
+    this.view.renderGameStartButton();
   }
 
   setBetMoney(dataset) {
     const { userindex } = dataset;
     const betMoney = this.gameContainer.querySelectorAll('.blackjack-bet-input')[userindex].value;
     this.viewModel.setBetMoney(betMoney, userindex);
+  }
+
+  gameStart(dataset) {
+    this.viewModel.gameStart();
   }
 }

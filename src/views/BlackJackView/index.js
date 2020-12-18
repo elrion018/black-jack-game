@@ -28,4 +28,11 @@ export default class BlackJackView {
       );
     });
   }
+
+  renderGameStartButton() {
+    addTemplateToDOMInnerHTML(
+      this.gameContainer.querySelector('#blackjack-bet-input-container'),
+      `<button id="blackjack-game-start-button" data-purpose="gameStart">${message.gameStart}</button>`,
+    );
+  }
 }
