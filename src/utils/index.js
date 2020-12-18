@@ -24,4 +24,8 @@ function isBlackJack(person) {
   }
 }
 
-export { randomCard, isBlackJack };
+function addTemplateToDOMInnerHTML(DOM, template) {
+  DOM.innerHTML += template;
+}
+
+export { randomCard, isBlackJack, addTemplateToDOMInnerHTML };

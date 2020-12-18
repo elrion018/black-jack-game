@@ -1,11 +1,16 @@
 import { Dealer, User } from '..';
-import { isBlackJack } from '../../utils';
 
 export default class BlackJackModel {
   constructor() {
     this._dealer = null;
     this._users = [];
     this.isContinue = true;
+  }
+
+  getUserNames() {
+    return this._users.map(user => {
+      return user._name;
+    });
   }
 
   getDealerCards() {
@@ -37,9 +42,12 @@ export default class BlackJackModel {
   }
 
   setUserInstances(userNames) {
+    console.log(userNames);
     this._users = userNames.map(userName => {
       return new User(userName);
     });
+
+    console.log(this._users);
   }
 
   gameStart() {
