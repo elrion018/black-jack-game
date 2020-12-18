@@ -2,17 +2,49 @@ import { Dealer, User } from '..';
 
 export default class BlackJackModel {
   constructor() {
-    this.Dealer = null;
-    this.users = [];
+    this._dealer = null;
+    this._users = [];
+  }
+
+  getDealerCards() {
+    return this._dealer.getCards();
+  }
+
+  getDealerSumValue() {
+    return this._dealer.getSumValue();
+  }
+
+  getUsersCards() {
+    return this._users.map(user => {
+      return [user._name, user.getCards()];
+    });
+  }
+
+  getUsersSumValues() {
+    return this._users.map(user => {
+      return [user._name, user._sumValue];
+    });
   }
 
   setDealerInstance() {
-    this.Dealer = new Dealer();
+    this._dealer = new Dealer();
   }
 
   setUserInstances(userNames) {
-    this.users = userNames.map(userName => {
+    this._users = userNames.map(userName => {
       return new User(userName);
     });
   }
+
+  gameStart() {
+    this._dealer.drawCard();
+    this._dealer.drawCard();
+
+    this._users.forEach(user => {
+      user.drawCard();
+      user.drawCard();
+    });
+  }
 }
+
+const model = new BlackJackModel();
