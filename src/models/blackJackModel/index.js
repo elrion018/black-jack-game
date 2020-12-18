@@ -37,12 +37,10 @@ export default class BlackJackModel {
   }
 
   gameStart() {
-    this._dealer.drawCard();
-    this._dealer.drawCard();
+    this._dealer.firstDraws();
 
     this._users.forEach(user => {
-      user.drawCard();
-      user.drawCard();
+      user.firstDraws();
     });
   }
 
